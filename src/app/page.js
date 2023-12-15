@@ -1,8 +1,8 @@
 "use client"; // This is a client component
-import Card from '../../components/Card'
-import Field from '../../components/Field'
-import ResultsField from '../../components/ResultsField'
-import Button from '../../components/Button'
+import Card from '../components/Card'
+import Field from '../components/Field'
+import ResultsField from '../components/ResultsField'
+import Button from '../components/Button'
 import { useState } from 'react'
 
 
@@ -41,12 +41,10 @@ export default function Home() {
 
           <div>
             <div className="m-4">
-              <button
-                type="submit"
-                className="bg-purple-900 text-white px-4 py-2 rounded"
+              <Button
                 onClick={handleButtonClick}>
                 Add Item
-              </button>
+              </Button>
             </div>
           </div>
         </Card>
