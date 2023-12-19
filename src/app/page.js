@@ -1,32 +1,39 @@
 "use client"; // This is a client component
-import Card from '../components/Card'
-import Field from '../components/Field'
-import ResultsField from '../components/ResultsField'
-import Button from '../components/Button'
-import { useState } from 'react'
-
+import Card from "../components/Card";
+import Field from "../components/Field";
+import ResultsField from "../components/ResultsField";
+import Button from "../components/Button";
+import { useState } from "react";
 
 export default function Home() {
-  const [showUserListCard, setShowUserListCard] = useState(false)
-  const [newItem, setNewItem] = useState('')
-  const [itemArray, setItemArray] = useState([])
+  const [showUserListCard, setShowUserListCard] = useState(false);
+  const [newItem, setNewItem] = useState("");
+  const [itemArray, setItemArray] = useState([]);
 
   const handleUsernameInput = (event) => {
-    setNewItem(event.target.value)
-  }
+    setNewItem(event.target.value);
+  };
+
+  const handleDelete = (id) => {
+    const updatedItems = itemArray.filter((item) => item.id !== id);
+    setItemArray(updatedItems);
+    if (updatedItems.length === 0) {
+      setShowUserListCard(false);
+    }
+  };
 
   const handleButtonClick = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const newUsers = {
       name: newItem,
       id: itemArray.length + 1,
-    }
-    setItemArray((prevItemArray) => [...prevItemArray, newUsers])
-    setNewItem('')
-    setShowUserListCard(true)
-  }
+    };
+    setItemArray((prevItemArray) => [...prevItemArray, newUsers]);
+    setNewItem("");
+    setShowUserListCard(true);
+  };
 
-  return(
+  return (
     <>
       <div className="flex justify-center">
         <Card>
@@ -41,10 +48,7 @@ export default function Home() {
 
           <div>
             <div className="m-4">
-              <Button
-                onClick={handleButtonClick}>
-                Add Item
-              </Button>
+              <Button onClick={handleButtonClick}>Add Item</Button>
             </div>
           </div>
         </Card>
@@ -54,12 +58,17 @@ export default function Home() {
           <Card>
             <ul>
               {itemArray.map((user) => (
-                <ResultsField key={user.id}>{user.name}</ResultsField>
+                <ResultsField
+                  key={user.id}
+                  onClick={() => handleDelete(user.id)}
+                >
+                  {user.name}
+                </ResultsField>
               ))}
             </ul>
           </Card>
         </div>
       )}
     </>
-  )
-};
+  );
+}
